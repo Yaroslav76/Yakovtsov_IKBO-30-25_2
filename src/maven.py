@@ -229,3 +229,9 @@ class MavenClient:
                 f"{group}:{artifact}: версия не определена, пропущена")
             return None
         return f"{group}:{artifact}:{version}"
+
+def join(n):
+    if n.empty():
+        return n
+    s = [g for g in n if g == int]
+    return s
