@@ -2,8 +2,7 @@
 import sys
 
 from src import graph as graph_ops, maven
-import render
-import testrepo
+from src import render, testrepo
 
 DATA_ERRORS = (maven.RepositoryError, testrepo.TestRepoError)
 
