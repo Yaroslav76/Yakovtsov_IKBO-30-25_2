@@ -1,0 +1,7 @@
+{
+  "package": "G",
+  "repository": "tests/data/graph_demo.txt",
+  "test_mode": true,
+  "reverse": true,
+  "max_depth": 10
+}

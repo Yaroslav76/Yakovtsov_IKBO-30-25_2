@@ -1,0 +1,6 @@
+{
+  "package": "A",
+  "repository": "tests/data/graph_bad_name.txt",
+  "test_mode": true,
+  "max_depth": 3
+}

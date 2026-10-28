@@ -1,0 +1,6 @@
+{
+  "package": "Z",
+  "repository": "tests/data/graph_basic.txt",
+  "test_mode": true,
+  "max_depth": 3
+}

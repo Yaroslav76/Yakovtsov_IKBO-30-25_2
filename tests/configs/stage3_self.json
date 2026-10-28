@@ -1,0 +1,6 @@
+{
+  "package": "X",
+  "repository": "tests/data/graph_self.txt",
+  "test_mode": true,
+  "max_depth": 5
+}

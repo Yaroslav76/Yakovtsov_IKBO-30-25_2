@@ -1,0 +1,8 @@
+{
+  "package": "A",
+  "repository": "tests/data/graph_demo.txt",
+  "test_mode": true,
+  "ascii_tree": false,
+  "reverse": false,
+  "max_depth": 10
+}

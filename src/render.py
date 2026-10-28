@@ -1,5 +1,5 @@
 """Текстовое представление графа: ASCII-дерево и язык диаграмм D2."""
-import graph as graph_ops
+from src import graph as graph_ops
 
 BRANCH = "├── "
 LAST = "└── "

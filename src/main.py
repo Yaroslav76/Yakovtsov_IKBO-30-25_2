@@ -6,7 +6,7 @@ import argparse
 import sys
 
 import stages
-from config import ConfigError, load_config
+from src.config import ConfigError, load_config
 
 STATUS_CONFIG = 2
 STATUS_DATA = 1

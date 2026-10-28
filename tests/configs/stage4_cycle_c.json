@@ -1,0 +1,7 @@
+{
+  "package": "C",
+  "repository": "tests/data/graph_cycle.txt",
+  "test_mode": true,
+  "reverse": true,
+  "max_depth": 10
+}

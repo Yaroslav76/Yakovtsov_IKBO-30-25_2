@@ -1,0 +1,6 @@
+{
+  "package": "org.example:lib-b",
+  "version": "1.5",
+  "repository": "http://localhost:8765",
+  "max_depth": 3
+}

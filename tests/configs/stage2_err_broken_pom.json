@@ -1,0 +1,6 @@
+{
+  "package": "org.example:broken",
+  "version": "1.0",
+  "repository": "http://localhost:8765",
+  "max_depth": 3
+}

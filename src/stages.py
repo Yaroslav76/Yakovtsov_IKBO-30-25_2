@@ -1,8 +1,7 @@
 """Обработчики этапов: что именно выводит приложение на каждом этапе."""
 import sys
 
-import graph as graph_ops
-import maven
+from src import graph as graph_ops, maven
 import render
 import testrepo
 
