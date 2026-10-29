@@ -6,8 +6,7 @@
 import re
 import urllib.error
 import urllib.request
-import xml.etree.ElementTree as ET
-from collections import namedtuple
+import xml.etree.ElementTree as etree
 from dataclasses import dataclass, field
 
 TIMEOUT = 10
@@ -16,11 +15,20 @@ MAX_SUBST = 10
 SCOPES = ("compile", "runtime")
 PLACEHOLDER = re.compile(r"\$\{([^}]+)\}")
 
-RawDep = namedtuple("RawDep", "group artifact version scope optional")
-
 
 class RepositoryError(Exception):
     """Ошибка загрузки или разбора данных репозитория."""
+
+
+@dataclass(frozen=True)
+class RawDep:
+    """Зависимость из POM до подстановки свойств."""
+
+    group: str
+    artifact: str
+    version: str
+    scope: str
+    optional: bool
 
 
 @dataclass
@@ -94,8 +102,8 @@ def _parse_managed(root):
 def parse_pom(text):
     """Разбирает текст POM-файла в объект Pom."""
     try:
-        root = ET.fromstring(text)
-    except ET.ParseError as e:
+        root = etree.fromstring(text)
+    except etree.ParseError as e:
         raise RepositoryError(f"некорректный XML в POM: {e}")
     _strip_namespaces(root)
     if root.tag != "project":
@@ -229,9 +237,3 @@ class MavenClient:
                 f"{group}:{artifact}: версия не определена, пропущена")
             return None
         return f"{group}:{artifact}:{version}"
-
-def join(n):
-    if n.empty():
-        return n
-    s = [g for g in n if g == int]
-    return s

@@ -45,32 +45,27 @@ class ParsePomTests(unittest.TestCase):
             maven.parse_pom("<other/>")
 
 
+@functools.lru_cache(maxsize=None)
+def repo_url():
+    """Запускает (один раз) локальный HTTP-сервер с каталогом mock_repo.
+
+    Сервер работает в фоновом потоке до конца тестового процесса.
+    """
+    handler = functools.partial(
+        http.server.SimpleHTTPRequestHandler, directory=helpers.MOCK_REPO)
+    handler.log_message = lambda *args: None
+    server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), handler)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    return f"http://127.0.0.1:{server.server_port}"
+
+
 class ClientTests(unittest.TestCase):
     """Работа клиента с тестовым HTTP-репозиторием."""
-
-    @classmethod
-    def setUpClass(cls):
-        """Запускает локальный HTTP-сервер с каталогом mock_repo."""
-        handler = functools.partial(
-            http.server.SimpleHTTPRequestHandler,
-            directory=helpers.MOCK_REPO)
-        handler.log_message = lambda *args: None
-        cls.server = http.server.ThreadingHTTPServer(
-            ("127.0.0.1", 0), handler)
-        cls.url = f"http://127.0.0.1:{cls.server.server_port}"
-        threading.Thread(target=cls.server.serve_forever,
-                         daemon=True).start()
-
-    @classmethod
-    def tearDownClass(cls):
-        """Останавливает сервер."""
-        cls.server.shutdown()
-        cls.server.server_close()
 
     def client(self, root):
         """Новый клиент и список его предупреждений."""
         warnings = []
-        return maven.MavenClient(self.url, warnings, root), warnings
+        return maven.MavenClient(repo_url(), warnings, root), warnings
 
     def test_direct_dependencies(self):
         """Наследование свойств и версий, пропуск test/provided/optional."""
